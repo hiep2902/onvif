@@ -7,9 +7,9 @@ package media
 import (
 	"context"
 	"github.com/juju/errors"
-	"github.com/use-go/onvif"
-	"github.com/use-go/onvif/sdk"
-	"github.com/use-go/onvif/media"
+	"github.com/hiep2902/onvif"
+	"github.com/hiep2902/onvif/sdk"
+	"github.com/hiep2902/onvif/media"
 )
 
 // Call_RemovePTZConfiguration forwards the call to dev.CallMethod() then parses the payload of the reply as a RemovePTZConfigurationResponse.
