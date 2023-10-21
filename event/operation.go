@@ -6,7 +6,7 @@ import (
 
 // GetServiceCapabilities action
 type GetServiceCapabilities struct {
-	XMLName string `xml:"tev:GetServiceCapabilities"`
+	XMLName string `xml:"GetServiceCapabilities"`
 }
 
 // GetServiceCapabilitiesResponse type
@@ -21,11 +21,11 @@ type SubscriptionPolicy struct { //tev http://www.onvif.org/ver10/events/wsdl
 
 // Subscribe action for subscribe event topic
 type Subscribe struct { //http://docs.oasis-open.org/wsn/b-2.xsd
-	XMLName                struct{}                   `xml:"wsnt:Subscribe"`
-	ConsumerReference      EndpointReferenceType      `xml:"wsnt:ConsumerReference"`
-	Filter                 FilterType                 `xml:"wsnt:Filter"`
-	SubscriptionPolicy     SubscriptionPolicy         `xml:"wsnt:SubscriptionPolicy"`
-	InitialTerminationTime AbsoluteOrRelativeTimeType `xml:"wsnt:InitialTerminationTime"`
+	XMLName                struct{}                   `xml:"Subscribe"`
+	ConsumerReference      EndpointReferenceType      `xml:"ConsumerReference"`
+	Filter                 FilterType                 `xml:"Filter"`
+	SubscriptionPolicy     SubscriptionPolicy         `xml:"SubscriptionPolicy"`
+	InitialTerminationTime AbsoluteOrRelativeTimeType `xml:"InitialTerminationTime"`
 }
 
 // SubscribeResponse message for subscribe event topic
@@ -37,13 +37,13 @@ type SubscribeResponse struct { //http://docs.oasis-open.org/wsn/b-2.xsd
 
 // Renew action for refresh event topic subscription
 type Renew struct { //http://docs.oasis-open.org/wsn/b-2.xsd
-	TerminationTime AbsoluteOrRelativeTimeType `xml:"wsnt:TerminationTime"`
+	TerminationTime AbsoluteOrRelativeTimeType `xml:"TerminationTime"`
 }
 
 // RenewResponse for Renew action
 type RenewResponse struct { //http://docs.oasis-open.org/wsn/b-2.xsd
-	TerminationTime TerminationTime `xml:"wsnt:TerminationTime"`
-	CurrentTime     CurrentTime     `xml:"wsnt:CurrentTime"`
+	TerminationTime TerminationTime `xml:"TerminationTime"`
+	CurrentTime     CurrentTime     `xml:"CurrentTime"`
 }
 
 // Unsubscribe action for Unsubscribe event topic
@@ -58,10 +58,10 @@ type UnsubscribeResponse struct { //http://docs.oasis-open.org/wsn/b-2.xsd
 
 // CreatePullPointSubscription action
 type CreatePullPointSubscription struct {
-	XMLName                string                     `xml:"tev:CreatePullPointSubscription"`
-	Filter                 FilterType                 `xml:"tev:Filter"`
-	InitialTerminationTime AbsoluteOrRelativeTimeType `xml:"wsnt:InitialTerminationTime"`
-	SubscriptionPolicy     SubscriptionPolicy         `xml:"wsnt:sSubscriptionPolicy"`
+	XMLName                string                     `xml:"CreatePullPointSubscription"`
+	Filter                 FilterType                 `xml:"Filter"`
+	InitialTerminationTime AbsoluteOrRelativeTimeType `xml:"InitialTerminationTime"`
+	SubscriptionPolicy     SubscriptionPolicy         `xml:"sSubscriptionPolicy"`
 }
 
 // CreatePullPointSubscriptionResponse action
@@ -73,7 +73,7 @@ type CreatePullPointSubscriptionResponse struct {
 
 // GetEventProperties action
 type GetEventProperties struct {
-	XMLName string `xml:"tev:GetEventProperties"`
+	XMLName string `xml:"GetEventProperties"`
 }
 
 // GetEventPropertiesResponse action
@@ -91,9 +91,9 @@ type GetEventPropertiesResponse struct {
 
 // PullMessages Action
 type PullMessages struct {
-	XMLName      string       `xml:"tev:PullMessages"`
-	Timeout      xsd.Duration `xml:"tev:Timeout"`
-	MessageLimit xsd.Int      `xml:"tev:MessageLimit"`
+	XMLName      string       `xml:"PullMessages"`
+	Timeout      xsd.Duration `xml:"Timeout"`
+	MessageLimit xsd.Int      `xml:"MessageLimit"`
 }
 
 // PullMessagesResponse response type
@@ -111,9 +111,9 @@ type PullMessagesFaultResponse struct {
 
 // Seek action
 type Seek struct {
-	XMLName string       `xml:"tev:Seek"`
-	UtcTime xsd.DateTime `xml:"tev:UtcTime"`
-	Reverse xsd.Boolean  `xml:"tev:Reverse"`
+	XMLName string       `xml:"Seek"`
+	UtcTime xsd.DateTime `xml:"UtcTime"`
+	Reverse xsd.Boolean  `xml:"Reverse"`
 }
 
 // SeekResponse action
@@ -122,7 +122,7 @@ type SeekResponse struct {
 
 // SetSynchronizationPoint action
 type SetSynchronizationPoint struct {
-	XMLName string `xml:"tev:SetSynchronizationPoint"`
+	XMLName string `xml:"SetSynchronizationPoint"`
 }
 
 // SetSynchronizationPointResponse action

@@ -6,59 +6,59 @@ import (
 )
 
 type GetServiceCapabilities struct {
-	XMLName string `xml:"timg:GetServiceCapabilities"`
+	XMLName string `xml:"GetServiceCapabilities"`
 }
 
 type GetImagingSettings struct {
-	XMLName          string               `xml:"timg:GetImagingSettings"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetImagingSettings"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type SetImagingSettings struct {
-	XMLName          string                  `xml:"timg:SetImagingSettings"`
-	VideoSourceToken onvif.ReferenceToken    `xml:"timg:VideoSourceToken"`
-	ImagingSettings  onvif.ImagingSettings20 `xml:"timg:ImagingSettings"`
-	ForcePersistence xsd.Boolean             `xml:"timg:ForcePersistence"`
+	XMLName          string                  `xml:"SetImagingSettings"`
+	VideoSourceToken onvif.ReferenceToken    `xml:"VideoSourceToken"`
+	ImagingSettings  onvif.ImagingSettings20 `xml:"ImagingSettings"`
+	ForcePersistence xsd.Boolean             `xml:"ForcePersistence"`
 }
 
 type GetOptions struct {
-	XMLName          string               `xml:"timg:GetOptions"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetOptions"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type Move struct {
-	XMLName          string               `xml:"timg:Move"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
-	Focus            onvif.FocusMove      `xml:"timg:Focus"`
+	XMLName          string               `xml:"Move"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
+	Focus            onvif.FocusMove      `xml:"Focus"`
 }
 
 type GetMoveOptions struct {
-	XMLName          string               `xml:"timg:GetMoveOptions"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetMoveOptions"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type Stop struct {
-	XMLName          string               `xml:"timg:Stop"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"Stop"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type GetStatus struct {
-	XMLName          string               `xml:"timg:GetStatus"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetStatus"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type GetPresets struct {
-	XMLName          string               `xml:"timg:GetPresets"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetPresets"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type GetCurrentPreset struct {
-	XMLName          string               `xml:"timg:GetCurrentPreset"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
+	XMLName          string               `xml:"GetCurrentPreset"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
 }
 
 type SetCurrentPreset struct {
-	XMLName          string               `xml:"timg:SetCurrentPreset"`
-	VideoSourceToken onvif.ReferenceToken `xml:"timg:VideoSourceToken"`
-	PresetToken      onvif.ReferenceToken `xml:"timg:PresetToken"`
+	XMLName          string               `xml:"SetCurrentPreset"`
+	VideoSourceToken onvif.ReferenceToken `xml:"VideoSourceToken"`
+	PresetToken      onvif.ReferenceToken `xml:"PresetToken"`
 }

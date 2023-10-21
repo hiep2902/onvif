@@ -6,73 +6,73 @@ import (
 )
 
 type GetSupportedRules struct {
-	XMLName            string               `xml:"tan:GetSupportedRules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetSupportedRules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type CreateRules struct {
-	XMLName            string               `xml:"tan:CreateRules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	Rule               onvif.Config         `xml:"tan:Rule"`
+	XMLName            string               `xml:"CreateRules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
+	Rule               onvif.Config         `xml:"Rule"`
 }
 
 type DeleteRules struct {
-	XMLName            string               `xml:"tan:DeleteRules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	RuleName           xsd.String           `xml:"tan:RuleName"`
+	XMLName            string               `xml:"DeleteRules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
+	RuleName           xsd.String           `xml:"RuleName"`
 }
 
 type GetRules struct {
-	XMLName            string               `xml:"tan:GetRules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetRules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type GetRuleOptions struct {
-	XMLName            string               `xml:"tan:GetRuleOptions"`
-	RuleType           xsd.QName            `xml:"tan:RuleType"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetRuleOptions"`
+	RuleType           xsd.QName            `xml:"RuleType"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type ModifyRules struct {
-	XMLName            string               `xml:"tan:ModifyRules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	Rule               onvif.Config         `xml:"tan:Rule"`
+	XMLName            string               `xml:"ModifyRules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
+	Rule               onvif.Config         `xml:"Rule"`
 }
 
 type GetServiceCapabilities struct {
-	XMLName string `xml:"tan:GetServiceCapabilities"`
+	XMLName string `xml:"GetServiceCapabilities"`
 }
 
 type GetSupportedAnalyticsModules struct {
-	XMLName            string               `xml:"tan:GetSupportedAnalyticsModules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetSupportedAnalyticsModules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type GetAnalyticsModuleOptions struct {
-	XMLName            string               `xml:"tan:GetAnalyticsModuleOptions"`
-	Type               xsd.QName            `xml:"tan:Type"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetAnalyticsModuleOptions"`
+	Type               xsd.QName            `xml:"Type"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type CreateAnalyticsModules struct {
-	XMLName            string               `xml:"tev:CreateAnalyticsModules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	AnalyticsModule    onvif.Config         `xml:"tan:AnalyticsModule"`
+	XMLName            string               `xml:"CreateAnalyticsModules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
+	AnalyticsModule    onvif.Config         `xml:"AnalyticsModule"`
 }
 
 type DeleteAnalyticsModules struct {
-	XMLName             string               `xml:"tan:DeleteAnalyticsModules"`
-	ConfigurationToken  onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	AnalyticsModuleName xsd.String           `xml:"tan:AnalyticsModuleName"`
+	XMLName             string               `xml:"DeleteAnalyticsModules"`
+	ConfigurationToken  onvif.ReferenceToken `xml:"ConfigurationToken"`
+	AnalyticsModuleName xsd.String           `xml:"AnalyticsModuleName"`
 }
 
 type GetAnalyticsModules struct {
-	XMLName            string               `xml:"tan:GetAnalyticsModules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
+	XMLName            string               `xml:"GetAnalyticsModules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
 }
 
 type ModifyAnalyticsModules struct {
-	XMLName            string               `xml:"tan:ModifyAnalyticsModules"`
-	ConfigurationToken onvif.ReferenceToken `xml:"tan:ConfigurationToken"`
-	AnalyticsModule    onvif.Config         `xml:"tan:AnalyticsModule"`
+	XMLName            string               `xml:"ModifyAnalyticsModules"`
+	ConfigurationToken onvif.ReferenceToken `xml:"ConfigurationToken"`
+	AnalyticsModule    onvif.Config         `xml:"AnalyticsModule"`
 }

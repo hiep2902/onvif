@@ -83,28 +83,28 @@ type MiscCapabilities struct {
 
 type StorageConfiguration struct {
 	onvif.DeviceEntity
-	Data StorageConfigurationData `xml:"tds:Data"`
+	Data StorageConfigurationData `xml:"Data"`
 }
 
 type StorageConfigurationData struct {
 	Type       xsd.String     `xml:"type,attr"`
-	LocalPath  xsd.AnyURI     `xml:"tds:LocalPath"`
-	StorageUri xsd.AnyURI     `xml:"tds:StorageUri"`
-	User       UserCredential `xml:"tds:User"`
-	Extension  xsd.AnyURI     `xml:"tds:Extension"`
+	LocalPath  xsd.AnyURI     `xml:"LocalPath"`
+	StorageUri xsd.AnyURI     `xml:"StorageUri"`
+	User       UserCredential `xml:"User"`
+	Extension  xsd.AnyURI     `xml:"Extension"`
 }
 
 type UserCredential struct {
-	UserName  xsd.String  `xml:"tds:UserName"`
-	Password  xsd.String  `xml:"tds:Password"`
-	Extension xsd.AnyType `xml:"tds:Extension"`
+	UserName  xsd.String  `xml:"UserName"`
+	Password  xsd.String  `xml:"Password"`
+	Extension xsd.AnyType `xml:"Extension"`
 }
 
 //Device main types
 
 type GetServices struct {
-	XMLName           string      `xml:"tds:GetServices"`
-	IncludeCapability xsd.Boolean `xml:"tds:IncludeCapability"`
+	XMLName           string      `xml:"GetServices"`
+	IncludeCapability xsd.Boolean `xml:"IncludeCapability"`
 }
 
 type GetServicesResponse struct {
@@ -112,7 +112,7 @@ type GetServicesResponse struct {
 }
 
 type GetServiceCapabilities struct {
-	XMLName string `xml:"tds:GetServiceCapabilities"`
+	XMLName string `xml:"GetServiceCapabilities"`
 }
 
 type GetServiceCapabilitiesResponse struct {
@@ -120,7 +120,7 @@ type GetServiceCapabilitiesResponse struct {
 }
 
 type GetDeviceInformation struct {
-	XMLName string `xml:"tds:GetDeviceInformation"`
+	XMLName string `xml:"GetDeviceInformation"`
 }
 
 type GetDeviceInformationResponse struct {
@@ -132,18 +132,18 @@ type GetDeviceInformationResponse struct {
 }
 
 type SetSystemDateAndTime struct {
-	XMLName         string                `xml:"tds:SetSystemDateAndTime"`
-	DateTimeType    onvif.SetDateTimeType `xml:"tds:DateTimeType"`
-	DaylightSavings xsd.Boolean           `xml:"tds:DaylightSavings"`
-	TimeZone        onvif.TimeZone        `xml:"tds:TimeZone"`
-	UTCDateTime     onvif.DateTime        `xml:"tds:UTCDateTime"`
+	XMLName         string                `xml:"SetSystemDateAndTime"`
+	DateTimeType    onvif.SetDateTimeType `xml:"DateTimeType"`
+	DaylightSavings xsd.Boolean           `xml:"DaylightSavings"`
+	TimeZone        onvif.TimeZone        `xml:"TimeZone"`
+	UTCDateTime     onvif.DateTime        `xml:"UTCDateTime"`
 }
 
 type SetSystemDateAndTimeResponse struct {
 }
 
 type GetSystemDateAndTime struct {
-	XMLName string `xml:"tds:GetSystemDateAndTime"`
+	XMLName string `xml:"GetSystemDateAndTime"`
 }
 
 type GetSystemDateAndTimeResponse struct {
@@ -151,16 +151,16 @@ type GetSystemDateAndTimeResponse struct {
 }
 
 type SetSystemFactoryDefault struct {
-	XMLName        string                   `xml:"tds:SetSystemFactoryDefault"`
-	FactoryDefault onvif.FactoryDefaultType `xml:"tds:FactoryDefault"`
+	XMLName        string                   `xml:"SetSystemFactoryDefault"`
+	FactoryDefault onvif.FactoryDefaultType `xml:"FactoryDefault"`
 }
 
 type SetSystemFactoryDefaultResponse struct {
 }
 
 type UpgradeSystemFirmware struct {
-	XMLName  string               `xml:"tds:UpgradeSystemFirmware"`
-	Firmware onvif.AttachmentData `xml:"tds:Firmware"`
+	XMLName  string               `xml:"UpgradeSystemFirmware"`
+	Firmware onvif.AttachmentData `xml:"Firmware"`
 }
 
 type UpgradeSystemFirmwareResponse struct {
@@ -168,7 +168,7 @@ type UpgradeSystemFirmwareResponse struct {
 }
 
 type SystemReboot struct {
-	XMLName string `xml:"tds:SystemReboot"`
+	XMLName string `xml:"SystemReboot"`
 }
 
 type SystemRebootResponse struct {
@@ -177,15 +177,15 @@ type SystemRebootResponse struct {
 
 // TODO: one or more repetitions
 type RestoreSystem struct {
-	XMLName     string           `xml:"tds:RestoreSystem"`
-	BackupFiles onvif.BackupFile `xml:"tds:BackupFiles"`
+	XMLName     string           `xml:"RestoreSystem"`
+	BackupFiles onvif.BackupFile `xml:"BackupFiles"`
 }
 
 type RestoreSystemResponse struct {
 }
 
 type GetSystemBackup struct {
-	XMLName string `xml:"tds:GetSystemBackup"`
+	XMLName string `xml:"GetSystemBackup"`
 }
 
 type GetSystemBackupResponse struct {
@@ -193,8 +193,8 @@ type GetSystemBackupResponse struct {
 }
 
 type GetSystemLog struct {
-	XMLName string              `xml:"tds:GetSystemLog"`
-	LogType onvif.SystemLogType `xml:"tds:LogType"`
+	XMLName string              `xml:"GetSystemLog"`
+	LogType onvif.SystemLogType `xml:"LogType"`
 }
 
 type GetSystemLogResponse struct {
@@ -202,7 +202,7 @@ type GetSystemLogResponse struct {
 }
 
 type GetSystemSupportInformation struct {
-	XMLName string `xml:"tds:GetSystemSupportInformation"`
+	XMLName string `xml:"GetSystemSupportInformation"`
 }
 
 type GetSystemSupportInformationResponse struct {
@@ -210,7 +210,7 @@ type GetSystemSupportInformationResponse struct {
 }
 
 type GetScopes struct {
-	XMLName string `xml:"tds:GetScopes"`
+	XMLName string `xml:"GetScopes"`
 }
 
 type GetScopesResponse struct {
@@ -219,8 +219,8 @@ type GetScopesResponse struct {
 
 // TODO: one or more scopes
 type SetScopes struct {
-	XMLName string     `xml:"tds:SetScopes"`
-	Scopes  xsd.AnyURI `xml:"tds:Scopes"`
+	XMLName string     `xml:"SetScopes"`
+	Scopes  xsd.AnyURI `xml:"Scopes"`
 }
 
 type SetScopesResponse struct {
@@ -228,8 +228,8 @@ type SetScopesResponse struct {
 
 // TODO: list of scopes
 type AddScopes struct {
-	XMLName   string     `xml:"tds:AddScopes"`
-	ScopeItem xsd.AnyURI `xml:"tds:ScopeItem"`
+	XMLName   string     `xml:"AddScopes"`
+	ScopeItem xsd.AnyURI `xml:"ScopeItem"`
 }
 
 type AddScopesResponse struct {
@@ -237,8 +237,8 @@ type AddScopesResponse struct {
 
 // TODO: One or more repetitions
 type RemoveScopes struct {
-	XMLName   string     `xml:"tds:RemoveScopes"`
-	ScopeItem xsd.AnyURI `xml:"onvif:ScopeItem"`
+	XMLName   string     `xml:"RemoveScopes"`
+	ScopeItem xsd.AnyURI `xml:"ScopeItem"`
 }
 
 type RemoveScopesResponse struct {
@@ -246,7 +246,7 @@ type RemoveScopesResponse struct {
 }
 
 type GetDiscoveryMode struct {
-	XMLName string `xml:"tds:GetDiscoveryMode"`
+	XMLName string `xml:"GetDiscoveryMode"`
 }
 
 type GetDiscoveryModeResponse struct {
@@ -254,15 +254,15 @@ type GetDiscoveryModeResponse struct {
 }
 
 type SetDiscoveryMode struct {
-	XMLName       string              `xml:"tds:SetDiscoveryMode"`
-	DiscoveryMode onvif.DiscoveryMode `xml:"tds:DiscoveryMode"`
+	XMLName       string              `xml:"SetDiscoveryMode"`
+	DiscoveryMode onvif.DiscoveryMode `xml:"DiscoveryMode"`
 }
 
 type SetDiscoveryModeResponse struct {
 }
 
 type GetRemoteDiscoveryMode struct {
-	XMLName string `xml:"tds:GetRemoteDiscoveryMode"`
+	XMLName string `xml:"GetRemoteDiscoveryMode"`
 }
 
 type GetRemoteDiscoveryModeResponse struct {
@@ -270,15 +270,15 @@ type GetRemoteDiscoveryModeResponse struct {
 }
 
 type SetRemoteDiscoveryMode struct {
-	XMLName             string              `xml:"tds:SetRemoteDiscoveryMode"`
-	RemoteDiscoveryMode onvif.DiscoveryMode `xml:"tds:RemoteDiscoveryMode"`
+	XMLName             string              `xml:"SetRemoteDiscoveryMode"`
+	RemoteDiscoveryMode onvif.DiscoveryMode `xml:"RemoteDiscoveryMode"`
 }
 
 type SetRemoteDiscoveryModeResponse struct {
 }
 
 type GetDPAddresses struct {
-	XMLName string `xml:"tds:GetDPAddresses"`
+	XMLName string `xml:"GetDPAddresses"`
 }
 
 type GetDPAddressesResponse struct {
@@ -286,15 +286,15 @@ type GetDPAddressesResponse struct {
 }
 
 type SetDPAddresses struct {
-	XMLName   string            `xml:"tds:SetDPAddresses"`
-	DPAddress onvif.NetworkHost `xml:"tds:DPAddress"`
+	XMLName   string            `xml:"SetDPAddresses"`
+	DPAddress onvif.NetworkHost `xml:"DPAddress"`
 }
 
 type SetDPAddressesResponse struct {
 }
 
 type GetEndpointReference struct {
-	XMLName string `xml:"tds:GetEndpointReference"`
+	XMLName string `xml:"GetEndpointReference"`
 }
 
 type GetEndpointReferenceResponse struct {
@@ -302,7 +302,7 @@ type GetEndpointReferenceResponse struct {
 }
 
 type GetRemoteUser struct {
-	XMLName string `xml:"tds:GetRemoteUser"`
+	XMLName string `xml:"GetRemoteUser"`
 }
 
 type GetRemoteUserResponse struct {
@@ -310,15 +310,15 @@ type GetRemoteUserResponse struct {
 }
 
 type SetRemoteUser struct {
-	XMLName    string           `xml:"tds:SetRemoteUser"`
-	RemoteUser onvif.RemoteUser `xml:"tds:RemoteUser"`
+	XMLName    string           `xml:"SetRemoteUser"`
+	RemoteUser onvif.RemoteUser `xml:"RemoteUser"`
 }
 
 type SetRemoteUserResponse struct {
 }
 
 type GetUsers struct {
-	XMLName string `xml:"tds:GetUsers"`
+	XMLName string `xml:"GetUsers"`
 }
 
 type GetUsersResponse struct {
@@ -327,8 +327,8 @@ type GetUsersResponse struct {
 
 // TODO: List of users
 type CreateUsers struct {
-	XMLName string     `xml:"tds:CreateUsers"`
-	User    onvif.User `xml:"tds:User,omitempty"`
+	XMLName string     `xml:"CreateUsers"`
+	User    onvif.User `xml:"User,omitempty"`
 }
 
 type CreateUsersResponse struct {
@@ -336,23 +336,23 @@ type CreateUsersResponse struct {
 
 // TODO: one or more Username
 type DeleteUsers struct {
-	XMLName  xsd.String `xml:"tds:DeleteUsers"`
-	Username xsd.String `xml:"tds:Username"`
+	XMLName  xsd.String `xml:"DeleteUsers"`
+	Username xsd.String `xml:"Username"`
 }
 
 type DeleteUsersResponse struct {
 }
 
 type SetUser struct {
-	XMLName string     `xml:"tds:SetUser"`
-	User    onvif.User `xml:"tds:User"`
+	XMLName string     `xml:"SetUser"`
+	User    onvif.User `xml:"User"`
 }
 
 type SetUserResponse struct {
 }
 
 type GetWsdlUrl struct {
-	XMLName string `xml:"tds:GetWsdlUrl"`
+	XMLName string `xml:"GetWsdlUrl"`
 }
 
 type GetWsdlUrlResponse struct {
@@ -360,8 +360,8 @@ type GetWsdlUrlResponse struct {
 }
 
 type GetCapabilities struct {
-	XMLName  string                   `xml:"tds:GetCapabilities"`
-	Category onvif.CapabilityCategory `xml:"tds:Category"`
+	XMLName  string                   `xml:"GetCapabilities"`
+	Category onvif.CapabilityCategory `xml:"Category"`
 }
 
 type GetCapabilitiesResponse struct {
@@ -369,7 +369,7 @@ type GetCapabilitiesResponse struct {
 }
 
 type GetHostname struct {
-	XMLName string `xml:"tds:GetHostname"`
+	XMLName string `xml:"GetHostname"`
 }
 
 type GetHostnameResponse struct {
@@ -377,16 +377,16 @@ type GetHostnameResponse struct {
 }
 
 type SetHostname struct {
-	XMLName string    `xml:"tds:SetHostname"`
-	Name    xsd.Token `xml:"tds:Name"`
+	XMLName string    `xml:"SetHostname"`
+	Name    xsd.Token `xml:"Name"`
 }
 
 type SetHostnameResponse struct {
 }
 
 type SetHostnameFromDHCP struct {
-	XMLName  string      `xml:"tds:SetHostnameFromDHCP"`
-	FromDHCP xsd.Boolean `xml:"tds:FromDHCP"`
+	XMLName  string      `xml:"SetHostnameFromDHCP"`
+	FromDHCP xsd.Boolean `xml:"FromDHCP"`
 }
 
 type SetHostnameFromDHCPResponse struct {
@@ -394,7 +394,7 @@ type SetHostnameFromDHCPResponse struct {
 }
 
 type GetDNS struct {
-	XMLName string `xml:"tds:GetDNS"`
+	XMLName string `xml:"GetDNS"`
 }
 
 type GetDNSResponse struct {
@@ -402,17 +402,17 @@ type GetDNSResponse struct {
 }
 
 type SetDNS struct {
-	XMLName      string          `xml:"tds:SetDNS"`
-	FromDHCP     xsd.Boolean     `xml:"tds:FromDHCP"`
-	SearchDomain xsd.Token       `xml:"tds:SearchDomain"`
-	DNSManual    onvif.IPAddress `xml:"tds:DNSManual"`
+	XMLName      string          `xml:"SetDNS"`
+	FromDHCP     xsd.Boolean     `xml:"FromDHCP"`
+	SearchDomain xsd.Token       `xml:"SearchDomain"`
+	DNSManual    onvif.IPAddress `xml:"DNSManual"`
 }
 
 type SetDNSResponse struct {
 }
 
 type GetNTP struct {
-	XMLName string `xml:"tds:GetNTP"`
+	XMLName string `xml:"GetNTP"`
 }
 
 type GetNTPResponse struct {
@@ -420,16 +420,16 @@ type GetNTPResponse struct {
 }
 
 type SetNTP struct {
-	XMLName   string            `xml:"tds:SetNTP"`
-	FromDHCP  xsd.Boolean       `xml:"tds:FromDHCP"`
-	NTPManual onvif.NetworkHost `xml:"tds:NTPManual"`
+	XMLName   string            `xml:"SetNTP"`
+	FromDHCP  xsd.Boolean       `xml:"FromDHCP"`
+	NTPManual onvif.NetworkHost `xml:"NTPManual"`
 }
 
 type SetNTPResponse struct {
 }
 
 type GetDynamicDNS struct {
-	XMLName string `xml:"tds:GetDynamicDNS"`
+	XMLName string `xml:"GetDynamicDNS"`
 }
 
 type GetDynamicDNSResponse struct {
@@ -437,17 +437,17 @@ type GetDynamicDNSResponse struct {
 }
 
 type SetDynamicDNS struct {
-	XMLName string               `xml:"tds:SetDynamicDNS"`
-	Type    onvif.DynamicDNSType `xml:"tds:Type"`
-	Name    onvif.DNSName        `xml:"tds:Name"`
-	TTL     xsd.Duration         `xml:"tds:TTL"`
+	XMLName string               `xml:"SetDynamicDNS"`
+	Type    onvif.DynamicDNSType `xml:"Type"`
+	Name    onvif.DNSName        `xml:"Name"`
+	TTL     xsd.Duration         `xml:"TTL"`
 }
 
 type SetDynamicDNSResponse struct {
 }
 
 type GetNetworkInterfaces struct {
-	XMLName string `xml:"tds:GetNetworkInterfaces"`
+	XMLName string `xml:"GetNetworkInterfaces"`
 }
 
 type GetNetworkInterfacesResponse struct {
@@ -455,9 +455,9 @@ type GetNetworkInterfacesResponse struct {
 }
 
 type SetNetworkInterfaces struct {
-	XMLName          string                                 `xml:"tds:SetNetworkInterfaces"`
-	InterfaceToken   onvif.ReferenceToken                   `xml:"tds:InterfaceToken"`
-	NetworkInterface onvif.NetworkInterfaceSetConfiguration `xml:"tds:NetworkInterface"`
+	XMLName          string                                 `xml:"SetNetworkInterfaces"`
+	InterfaceToken   onvif.ReferenceToken                   `xml:"InterfaceToken"`
+	NetworkInterface onvif.NetworkInterfaceSetConfiguration `xml:"NetworkInterface"`
 }
 
 type SetNetworkInterfacesResponse struct {
@@ -465,7 +465,7 @@ type SetNetworkInterfacesResponse struct {
 }
 
 type GetNetworkProtocols struct {
-	XMLName string `xml:"tds:GetNetworkProtocols"`
+	XMLName string `xml:"GetNetworkProtocols"`
 }
 
 type GetNetworkProtocolsResponse struct {
@@ -473,15 +473,15 @@ type GetNetworkProtocolsResponse struct {
 }
 
 type SetNetworkProtocols struct {
-	XMLName          string                `xml:"tds:SetNetworkProtocols"`
-	NetworkProtocols onvif.NetworkProtocol `xml:"tds:NetworkProtocols"`
+	XMLName          string                `xml:"SetNetworkProtocols"`
+	NetworkProtocols onvif.NetworkProtocol `xml:"NetworkProtocols"`
 }
 
 type SetNetworkProtocolsResponse struct {
 }
 
 type GetNetworkDefaultGateway struct {
-	XMLName string `xml:"tds:GetNetworkDefaultGateway"`
+	XMLName string `xml:"GetNetworkDefaultGateway"`
 }
 
 type GetNetworkDefaultGatewayResponse struct {
@@ -489,16 +489,16 @@ type GetNetworkDefaultGatewayResponse struct {
 }
 
 type SetNetworkDefaultGateway struct {
-	XMLName     string            `xml:"tds:SetNetworkDefaultGateway"`
-	IPv4Address onvif.IPv4Address `xml:"tds:IPv4Address"`
-	IPv6Address onvif.IPv6Address `xml:"tds:IPv6Address"`
+	XMLName     string            `xml:"SetNetworkDefaultGateway"`
+	IPv4Address onvif.IPv4Address `xml:"IPv4Address"`
+	IPv6Address onvif.IPv6Address `xml:"IPv6Address"`
 }
 
 type SetNetworkDefaultGatewayResponse struct {
 }
 
 type GetZeroConfiguration struct {
-	XMLName string `xml:"tds:GetZeroConfiguration"`
+	XMLName string `xml:"GetZeroConfiguration"`
 }
 
 type GetZeroConfigurationResponse struct {
@@ -506,16 +506,16 @@ type GetZeroConfigurationResponse struct {
 }
 
 type SetZeroConfiguration struct {
-	XMLName        string               `xml:"tds:SetZeroConfiguration"`
-	InterfaceToken onvif.ReferenceToken `xml:"tds:InterfaceToken"`
-	Enabled        xsd.Boolean          `xml:"tds:Enabled"`
+	XMLName        string               `xml:"SetZeroConfiguration"`
+	InterfaceToken onvif.ReferenceToken `xml:"InterfaceToken"`
+	Enabled        xsd.Boolean          `xml:"Enabled"`
 }
 
 type SetZeroConfigurationResponse struct {
 }
 
 type GetIPAddressFilter struct {
-	XMLName string `xml:"tds:GetIPAddressFilter"`
+	XMLName string `xml:"GetIPAddressFilter"`
 }
 
 type GetIPAddressFilterResponse struct {
@@ -523,8 +523,8 @@ type GetIPAddressFilterResponse struct {
 }
 
 type SetIPAddressFilter struct {
-	XMLName         string                `xml:"tds:SetIPAddressFilter"`
-	IPAddressFilter onvif.IPAddressFilter `xml:"tds:IPAddressFilter"`
+	XMLName         string                `xml:"SetIPAddressFilter"`
+	IPAddressFilter onvif.IPAddressFilter `xml:"IPAddressFilter"`
 }
 
 type SetIPAddressFilterResponse struct {
@@ -536,23 +536,23 @@ type SetIPAddressFilterResponse struct {
 // the device shall support adding of IP filtering addresses through
 // the AddIPAddressFilter command.
 type AddIPAddressFilter struct {
-	XMLName         string                `xml:"tds:AddIPAddressFilter"`
-	IPAddressFilter onvif.IPAddressFilter `xml:"tds:IPAddressFilter"`
+	XMLName         string                `xml:"AddIPAddressFilter"`
+	IPAddressFilter onvif.IPAddressFilter `xml:"IPAddressFilter"`
 }
 
 type AddIPAddressFilterResponse struct {
 }
 
 type RemoveIPAddressFilter struct {
-	XMLName         string                `xml:"tds:RemoveIPAddressFilter"`
-	IPAddressFilter onvif.IPAddressFilter `xml:"onvif:IPAddressFilter"`
+	XMLName         string                `xml:"RemoveIPAddressFilter"`
+	IPAddressFilter onvif.IPAddressFilter `xml:"IPAddressFilter"`
 }
 
 type RemoveIPAddressFilterResponse struct {
 }
 
 type GetAccessPolicy struct {
-	XMLName string `xml:"tds:GetAccessPolicy"`
+	XMLName string `xml:"GetAccessPolicy"`
 }
 
 type GetAccessPolicyResponse struct {
@@ -560,19 +560,19 @@ type GetAccessPolicyResponse struct {
 }
 
 type SetAccessPolicy struct {
-	XMLName    string           `xml:"tds:SetAccessPolicy"`
-	PolicyFile onvif.BinaryData `xml:"tds:PolicyFile"`
+	XMLName    string           `xml:"SetAccessPolicy"`
+	PolicyFile onvif.BinaryData `xml:"PolicyFile"`
 }
 
 type SetAccessPolicyResponse struct {
 }
 
 type CreateCertificate struct {
-	XMLName        string       `xml:"tds:CreateCertificate"`
-	CertificateID  xsd.Token    `xml:"tds:CertificateID,omitempty"`
-	Subject        string       `xml:"tds:Subject,omitempty"`
-	ValidNotBefore xsd.DateTime `xml:"tds:ValidNotBefore,omitempty"`
-	ValidNotAfter  xsd.DateTime `xml:"tds:ValidNotAfter,omitempty"`
+	XMLName        string       `xml:"CreateCertificate"`
+	CertificateID  xsd.Token    `xml:"CertificateID,omitempty"`
+	Subject        string       `xml:"Subject,omitempty"`
+	ValidNotBefore xsd.DateTime `xml:"ValidNotBefore,omitempty"`
+	ValidNotAfter  xsd.DateTime `xml:"ValidNotAfter,omitempty"`
 }
 
 type CreateCertificateResponse struct {
@@ -580,7 +580,7 @@ type CreateCertificateResponse struct {
 }
 
 type GetCertificates struct {
-	XMLName string `xml:"tds:GetCertificates"`
+	XMLName string `xml:"GetCertificates"`
 }
 
 type GetCertificatesResponse struct {
@@ -588,7 +588,7 @@ type GetCertificatesResponse struct {
 }
 
 type GetCertificatesStatus struct {
-	XMLName string `xml:"tds:GetCertificatesStatus"`
+	XMLName string `xml:"GetCertificatesStatus"`
 }
 
 type GetCertificatesStatusResponse struct {
@@ -596,8 +596,8 @@ type GetCertificatesStatusResponse struct {
 }
 
 type SetCertificatesStatus struct {
-	XMLName           string                  `xml:"tds:SetCertificatesStatus"`
-	CertificateStatus onvif.CertificateStatus `xml:"tds:CertificateStatus"`
+	XMLName           string                  `xml:"SetCertificatesStatus"`
+	CertificateStatus onvif.CertificateStatus `xml:"CertificateStatus"`
 }
 
 type SetCertificatesStatusResponse struct {
@@ -605,8 +605,8 @@ type SetCertificatesStatusResponse struct {
 
 // TODO: List of CertificateID
 type DeleteCertificates struct {
-	XMLName       string    `xml:"tds:DeleteCertificates"`
-	CertificateID xsd.Token `xml:"tds:CertificateID"`
+	XMLName       string    `xml:"DeleteCertificates"`
+	CertificateID xsd.Token `xml:"CertificateID"`
 }
 
 type DeleteCertificatesResponse struct {
@@ -614,10 +614,10 @@ type DeleteCertificatesResponse struct {
 
 // TODO: Откуда onvif:data = cid:21312413412
 type GetPkcs10Request struct {
-	XMLName       string           `xml:"tds:GetPkcs10Request"`
-	CertificateID xsd.Token        `xml:"tds:CertificateID"`
-	Subject       xsd.String       `xml:"tds:Subject"`
-	Attributes    onvif.BinaryData `xml:"tds:Attributes"`
+	XMLName       string           `xml:"GetPkcs10Request"`
+	CertificateID xsd.Token        `xml:"CertificateID"`
+	Subject       xsd.String       `xml:"Subject"`
+	Attributes    onvif.BinaryData `xml:"Attributes"`
 }
 
 type GetPkcs10RequestResponse struct {
@@ -626,15 +626,15 @@ type GetPkcs10RequestResponse struct {
 
 // TODO: one or more NTVCertificate
 type LoadCertificates struct {
-	XMLName        string            `xml:"tds:LoadCertificates"`
-	NVTCertificate onvif.Certificate `xml:"tds:NVTCertificate"`
+	XMLName        string            `xml:"LoadCertificates"`
+	NVTCertificate onvif.Certificate `xml:"NVTCertificate"`
 }
 
 type LoadCertificatesResponse struct {
 }
 
 type GetClientCertificateMode struct {
-	XMLName string `xml:"tds:GetClientCertificateMode"`
+	XMLName string `xml:"GetClientCertificateMode"`
 }
 
 type GetClientCertificateModeResponse struct {
@@ -642,15 +642,15 @@ type GetClientCertificateModeResponse struct {
 }
 
 type SetClientCertificateMode struct {
-	XMLName string      `xml:"tds:SetClientCertificateMode"`
-	Enabled xsd.Boolean `xml:"tds:Enabled"`
+	XMLName string      `xml:"SetClientCertificateMode"`
+	Enabled xsd.Boolean `xml:"Enabled"`
 }
 
 type SetClientCertificateModeResponse struct {
 }
 
 type GetRelayOutputs struct {
-	XMLName string `xml:"tds:GetRelayOutputs"`
+	XMLName string `xml:"GetRelayOutputs"`
 }
 
 type GetRelayOutputsResponse struct {
@@ -658,26 +658,26 @@ type GetRelayOutputsResponse struct {
 }
 
 type SetRelayOutputSettings struct {
-	XMLName          string                    `xml:"tds:SetRelayOutputSettings"`
-	RelayOutputToken onvif.ReferenceToken      `xml:"tds:RelayOutputToken"`
-	Properties       onvif.RelayOutputSettings `xml:"tds:Properties"`
+	XMLName          string                    `xml:"SetRelayOutputSettings"`
+	RelayOutputToken onvif.ReferenceToken      `xml:"RelayOutputToken"`
+	Properties       onvif.RelayOutputSettings `xml:"Properties"`
 }
 
 type SetRelayOutputSettingsResponse struct {
 }
 
 type SetRelayOutputState struct {
-	XMLName          string                  `xml:"tds:SetRelayOutputState"`
-	RelayOutputToken onvif.ReferenceToken    `xml:"tds:RelayOutputToken"`
-	LogicalState     onvif.RelayLogicalState `xml:"tds:LogicalState"`
+	XMLName          string                  `xml:"SetRelayOutputState"`
+	RelayOutputToken onvif.ReferenceToken    `xml:"RelayOutputToken"`
+	LogicalState     onvif.RelayLogicalState `xml:"LogicalState"`
 }
 
 type SetRelayOutputStateResponse struct {
 }
 
 type SendAuxiliaryCommand struct {
-	XMLName          string              `xml:"tds:SendAuxiliaryCommand"`
-	AuxiliaryCommand onvif.AuxiliaryData `xml:"tds:AuxiliaryCommand"`
+	XMLName          string              `xml:"SendAuxiliaryCommand"`
+	AuxiliaryCommand onvif.AuxiliaryData `xml:"AuxiliaryCommand"`
 }
 
 type SendAuxiliaryCommandResponse struct {
@@ -685,7 +685,7 @@ type SendAuxiliaryCommandResponse struct {
 }
 
 type GetCACertificates struct {
-	XMLName string `xml:"tds:GetCACertificates"`
+	XMLName string `xml:"GetCACertificates"`
 }
 
 type GetCACertificatesResponse struct {
@@ -694,16 +694,16 @@ type GetCACertificatesResponse struct {
 
 // TODO: one or more CertificateWithPrivateKey
 type LoadCertificateWithPrivateKey struct {
-	XMLName                   string                          `xml:"tds:LoadCertificateWithPrivateKey"`
-	CertificateWithPrivateKey onvif.CertificateWithPrivateKey `xml:"tds:CertificateWithPrivateKey"`
+	XMLName                   string                          `xml:"LoadCertificateWithPrivateKey"`
+	CertificateWithPrivateKey onvif.CertificateWithPrivateKey `xml:"CertificateWithPrivateKey"`
 }
 
 type LoadCertificateWithPrivateKeyResponse struct {
 }
 
 type GetCertificateInformation struct {
-	XMLName       string    `xml:"tds:GetCertificateInformation"`
-	CertificateID xsd.Token `xml:"tds:CertificateID"`
+	XMLName       string    `xml:"GetCertificateInformation"`
+	CertificateID xsd.Token `xml:"CertificateID"`
 }
 
 type GetCertificateInformationResponse struct {
@@ -711,32 +711,32 @@ type GetCertificateInformationResponse struct {
 }
 
 type LoadCACertificates struct {
-	XMLName       string            `xml:"tds:LoadCACertificates"`
-	CACertificate onvif.Certificate `xml:"tds:CACertificate"`
+	XMLName       string            `xml:"LoadCACertificates"`
+	CACertificate onvif.Certificate `xml:"CACertificate"`
 }
 
 type LoadCACertificatesResponse struct {
 }
 
 type CreateDot1XConfiguration struct {
-	XMLName            string                   `xml:"tds:CreateDot1XConfiguration"`
-	Dot1XConfiguration onvif.Dot1XConfiguration `xml:"tds:Dot1XConfiguration"`
+	XMLName            string                   `xml:"CreateDot1XConfiguration"`
+	Dot1XConfiguration onvif.Dot1XConfiguration `xml:"Dot1XConfiguration"`
 }
 
 type CreateDot1XConfigurationResponse struct {
 }
 
 type SetDot1XConfiguration struct {
-	XMLName            string                   `xml:"tds:SetDot1XConfiguration"`
-	Dot1XConfiguration onvif.Dot1XConfiguration `xml:"tds:Dot1XConfiguration"`
+	XMLName            string                   `xml:"SetDot1XConfiguration"`
+	Dot1XConfiguration onvif.Dot1XConfiguration `xml:"Dot1XConfiguration"`
 }
 
 type SetDot1XConfigurationResponse struct {
 }
 
 type GetDot1XConfiguration struct {
-	XMLName                 string               `xml:"tds:GetDot1XConfiguration"`
-	Dot1XConfigurationToken onvif.ReferenceToken `xml:"tds:Dot1XConfigurationToken"`
+	XMLName                 string               `xml:"GetDot1XConfiguration"`
+	Dot1XConfigurationToken onvif.ReferenceToken `xml:"Dot1XConfigurationToken"`
 }
 
 type GetDot1XConfigurationResponse struct {
@@ -744,7 +744,7 @@ type GetDot1XConfigurationResponse struct {
 }
 
 type GetDot1XConfigurations struct {
-	XMLName string `xml:"tds:GetDot1XConfigurations"`
+	XMLName string `xml:"GetDot1XConfigurations"`
 }
 
 type GetDot1XConfigurationsResponse struct {
@@ -753,15 +753,15 @@ type GetDot1XConfigurationsResponse struct {
 
 // TODO: Zero or more Dot1XConfigurationToken
 type DeleteDot1XConfiguration struct {
-	XMLName                 string               `xml:"tds:DeleteDot1XConfiguration"`
-	Dot1XConfigurationToken onvif.ReferenceToken `xml:"tds:Dot1XConfigurationToken"`
+	XMLName                 string               `xml:"DeleteDot1XConfiguration"`
+	Dot1XConfigurationToken onvif.ReferenceToken `xml:"Dot1XConfigurationToken"`
 }
 
 type DeleteDot1XConfigurationResponse struct {
 }
 
 type GetDot11Capabilities struct {
-	XMLName string `xml:"tds:GetDot11Capabilities"`
+	XMLName string `xml:"GetDot11Capabilities"`
 }
 
 type GetDot11CapabilitiesResponse struct {
@@ -769,8 +769,8 @@ type GetDot11CapabilitiesResponse struct {
 }
 
 type GetDot11Status struct {
-	XMLName        string               `xml:"tds:GetDot11Status"`
-	InterfaceToken onvif.ReferenceToken `xml:"tds:InterfaceToken"`
+	XMLName        string               `xml:"GetDot11Status"`
+	InterfaceToken onvif.ReferenceToken `xml:"InterfaceToken"`
 }
 
 type GetDot11StatusResponse struct {
@@ -778,8 +778,8 @@ type GetDot11StatusResponse struct {
 }
 
 type ScanAvailableDot11Networks struct {
-	XMLName        string               `xml:"tds:ScanAvailableDot11Networks"`
-	InterfaceToken onvif.ReferenceToken `xml:"tds:InterfaceToken"`
+	XMLName        string               `xml:"ScanAvailableDot11Networks"`
+	InterfaceToken onvif.ReferenceToken `xml:"InterfaceToken"`
 }
 
 type ScanAvailableDot11NetworksResponse struct {
@@ -787,7 +787,7 @@ type ScanAvailableDot11NetworksResponse struct {
 }
 
 type GetSystemUris struct {
-	XMLName string `xml:"tds:GetSystemUris"`
+	XMLName string `xml:"GetSystemUris"`
 }
 
 type GetSystemUrisResponse struct {
@@ -798,7 +798,7 @@ type GetSystemUrisResponse struct {
 }
 
 type StartFirmwareUpgrade struct {
-	XMLName string `xml:"tds:StartFirmwareUpgrade"`
+	XMLName string `xml:"StartFirmwareUpgrade"`
 }
 
 type StartFirmwareUpgradeResponse struct {
@@ -808,7 +808,7 @@ type StartFirmwareUpgradeResponse struct {
 }
 
 type StartSystemRestore struct {
-	XMLName string `xml:"tds:StartSystemRestore"`
+	XMLName string `xml:"StartSystemRestore"`
 }
 
 type StartSystemRestoreResponse struct {
@@ -817,7 +817,7 @@ type StartSystemRestoreResponse struct {
 }
 
 type GetStorageConfigurations struct {
-	XMLName string `xml:"tds:GetStorageConfigurations"`
+	XMLName string `xml:"GetStorageConfigurations"`
 }
 
 type GetStorageConfigurationsResponse struct {
@@ -825,7 +825,7 @@ type GetStorageConfigurationsResponse struct {
 }
 
 type CreateStorageConfiguration struct {
-	XMLName              string `xml:"tds:CreateStorageConfiguration"`
+	XMLName              string `xml:"CreateStorageConfiguration"`
 	StorageConfiguration StorageConfigurationData
 }
 
@@ -834,8 +834,8 @@ type CreateStorageConfigurationResponse struct {
 }
 
 type GetStorageConfiguration struct {
-	XMLName string               `xml:"tds:GetStorageConfiguration"`
-	Token   onvif.ReferenceToken `xml:"tds:Token"`
+	XMLName string               `xml:"GetStorageConfiguration"`
+	Token   onvif.ReferenceToken `xml:"Token"`
 }
 
 type GetStorageConfigurationResponse struct {
@@ -843,23 +843,23 @@ type GetStorageConfigurationResponse struct {
 }
 
 type SetStorageConfiguration struct {
-	XMLName              string               `xml:"tds:SetStorageConfiguration"`
-	StorageConfiguration StorageConfiguration `xml:"tds:StorageConfiguration"`
+	XMLName              string               `xml:"SetStorageConfiguration"`
+	StorageConfiguration StorageConfiguration `xml:"StorageConfiguration"`
 }
 
 type SetStorageConfigurationResponse struct {
 }
 
 type DeleteStorageConfiguration struct {
-	XMLName string               `xml:"tds:DeleteStorageConfiguration"`
-	Token   onvif.ReferenceToken `xml:"tds:Token"`
+	XMLName string               `xml:"DeleteStorageConfiguration"`
+	Token   onvif.ReferenceToken `xml:"Token"`
 }
 
 type DeleteStorageConfigurationResponse struct {
 }
 
 type GetGeoLocation struct {
-	XMLName string `xml:"tds:GetGeoLocation"`
+	XMLName string `xml:"GetGeoLocation"`
 }
 
 type GetGeoLocationResponse struct {
@@ -868,16 +868,16 @@ type GetGeoLocationResponse struct {
 
 // TODO: one or more Location
 type SetGeoLocation struct {
-	XMLName  string               `xml:"tds:SetGeoLocation"`
-	Location onvif.LocationEntity `xml:"tds:Location"`
+	XMLName  string               `xml:"SetGeoLocation"`
+	Location onvif.LocationEntity `xml:"Location"`
 }
 
 type SetGeoLocationResponse struct {
 }
 
 type DeleteGeoLocation struct {
-	XMLName  string               `xml:"tds:DeleteGeoLocation"`
-	Location onvif.LocationEntity `xml:"tds:Location"`
+	XMLName  string               `xml:"DeleteGeoLocation"`
+	Location onvif.LocationEntity `xml:"Location"`
 }
 
 type DeleteGeoLocationResponse struct {
