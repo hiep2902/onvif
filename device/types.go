@@ -238,7 +238,7 @@ type AddScopesResponse struct {
 // TODO: One or more repetitions
 type RemoveScopes struct {
 	XMLName   string     `xml:"tds:RemoveScopes"`
-	ScopeItem xsd.AnyURI `xml:"onvif:ScopeItem"`
+	ScopeItem xsd.AnyURI `xml:"ScopeItem"`
 }
 
 type RemoveScopesResponse struct {
@@ -545,7 +545,7 @@ type AddIPAddressFilterResponse struct {
 
 type RemoveIPAddressFilter struct {
 	XMLName         string                `xml:"tds:RemoveIPAddressFilter"`
-	IPAddressFilter onvif.IPAddressFilter `xml:"onvif:IPAddressFilter"`
+	IPAddressFilter onvif.IPAddressFilter `xml:"IPAddressFilter"`
 }
 
 type RemoveIPAddressFilterResponse struct {
