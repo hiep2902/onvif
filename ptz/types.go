@@ -1,8 +1,8 @@
 package ptz
 
 import (
-	"github.com/use-go/onvif/xsd"
-	"github.com/use-go/onvif/xsd/onvif"
+	"github.com/hiep2902/onvif/xsd"
+	"github.com/hiep2902/onvif/xsd/onvif"
 )
 
 type Capabilities struct {
@@ -252,8 +252,8 @@ type ModifyPresetTourResponse struct {
 type OperatePresetTour struct {
 	XMLName         string                       `xml:"tptz:OperatePresetTour"`
 	ProfileToken    onvif.ReferenceToken         `xml:"tptz:ProfileToken"`
-	PresetTourToken onvif.ReferenceToken         `xml:"onvif:PresetTourToken"`
-	Operation       onvif.PTZPresetTourOperation `xml:"onvif:Operation"`
+	PresetTourToken onvif.ReferenceToken         `xml:"PresetTourToken"`
+	Operation       onvif.PTZPresetTourOperation `xml:"Operation"`
 }
 
 type OperatePresetTourResponse struct {
