@@ -34,6 +34,9 @@ var Xlmns = map[string]string{
 	"wsntw":   "http://docs.oasis-open.org/wsn/bw-2",
 	"wsrf-rw": "http://docs.oasis-open.org/wsrf/rw-2",
 	"wsaw":    "http://www.w3.org/2006/05/addressing/wsdl",
+	"trc":     "http://www.onvif.org/ver10/recording/wsdl",
+	"trp":     "http://www.onvif.org/ver10/replay/wsdl",
+	"tse":     "http://www.onvif.org/ver10/search/wsdl",
 }
 
 // DeviceType alias for int
@@ -257,6 +260,16 @@ func (dev Device) CallMethod(method interface{}) (*http.Response, error) {
 	pkg := strings.ToLower(pkgPath[len(pkgPath)-1])
 
 	endpoint, err := dev.getEndpoint(pkg)
+	if err != nil {
+		return nil, err
+	}
+	return dev.callMethodDo(endpoint, method)
+}
+
+// CallEndpointMethod functions call an method, un-defined <method> struct.
+// You should use Authenticate method to call authorized requests.
+func (dev Device) CallEndpointMethod(endpointName string, method interface{}) (*http.Response, error) {
+	endpoint, err := dev.getEndpoint(endpointName)
 	if err != nil {
 		return nil, err
 	}
