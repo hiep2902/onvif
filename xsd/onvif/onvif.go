@@ -631,7 +631,7 @@ type EventSubscription struct {
 	SubscriptionPolicy `xml:"SubscriptionPolicy"`
 }
 
-type FilterType xsd.AnyType
+// type FilterType xsd.AnyType
 
 type SubscriptionPolicy xsd.AnyType
 
@@ -814,6 +814,11 @@ type StreamSetup struct {
 
 type StreamType xsd.String
 
+const (
+	StreamType_RTP_Unicast   StreamType = "RTP-Unicast"
+	StreamType_RTP_Multicast StreamType = "RTP-Multicast"
+)
+
 type Transport struct {
 	Protocol TransportProtocol `xml:"Protocol"`
 	Tunnel   *Transport        `xml:"Tunnel"`
@@ -821,6 +826,13 @@ type Transport struct {
 
 // enum
 type TransportProtocol xsd.String
+
+const (
+	TransportProtocol_UDP  TransportProtocol = "UDP"
+	TransportProtocol_TCP  TransportProtocol = "TCP" //deprecated
+	TransportProtocol_RTSP TransportProtocol = "RTSP"
+	TransportProtocol_HTTP TransportProtocol = "HTTP"
+)
 
 type MediaUri struct {
 	Uri                 xsd.AnyURI
@@ -844,9 +856,7 @@ type EncodingTypes struct {
 	EncodingTypes []string
 }
 
-type Description struct {
-	Description string
-}
+type Description xsd.String
 
 type VideoSourceModeExtension xsd.AnyType
 
@@ -1869,4 +1879,209 @@ type Date struct {
 	Year  xsd.Int `xml:"Year"`
 	Month xsd.Int `xml:"Month"`
 	Day   xsd.Int `xml:"Day"`
+}
+
+type GetRecordingsResponseItem struct {
+	RecordingToken RecordingReference
+	Configuration  RecordingConfiguration
+	Tracks         GetTracksResponseList
+}
+
+type RecordingReference ReferenceToken
+
+type RecordingConfiguration struct {
+	Source               RecordingSourceInformation
+	Content              Description
+	MaximumRetentionTime xsd.Duration
+	Target               RecordingTargetConfiguration
+}
+
+type RecordingSourceInformation struct {
+	SourceId    xsd.AnyURI
+	Name        xsd.Name
+	Location    Description
+	Description Description
+	Address     xsd.AnyURI
+}
+
+type RecordingTargetConfiguration struct {
+	Storage         ReferenceToken
+	Format          xsd.String
+	Prefix          xsd.String
+	Postfix         xsd.String
+	SpanDuration    xsd.Duration
+	SegmentDuration xsd.Duration
+	Encryption      RecordingEncryption
+}
+
+type RecordingEncryption struct {
+	Mode  xsd.String `xml:"Mode,attr"`
+	KID   xsd.String
+	Key   xsd.HexBinary
+	Track []xsd.String
+}
+
+type GetTracksResponseList struct {
+	Track []GetTracksResponseItem
+}
+
+type GetTracksResponseItem struct {
+	TrackToken    TrackReference
+	Configuration TrackConfiguration
+}
+
+type TrackReference ReferenceToken
+
+type TrackConfiguration struct {
+	TrackType   TrackType
+	Description Description
+}
+
+type TrackType xsd.String
+
+const (
+	TrackType_Video    TrackType = "Video"
+	TrackType_Audio    TrackType = "Audio"
+	TrackType_Metadata TrackType = "Metadata"
+	TrackType_Extended TrackType = "Extended"
+)
+
+type SearchScope struct {
+	IncludedSources            SourceReference
+	IncludedRecordings         RecordingReference
+	RecordingInformationFilter XPathExpression
+	Extension                  SearchScopeExtension
+}
+
+type SourceReference struct {
+	Token ReferenceToken
+	Type  xsd.AnyURI `xml:"Type,attr,omitempty"`
+}
+
+type XPathExpression xsd.String
+
+type SearchScopeExtension struct{}
+
+type JobToken ReferenceToken
+
+type EventFilter FilterType
+
+type FindRecordingResultList struct {
+	SearchState          SearchState
+	RecordingInformation []RecordingInformation
+}
+
+type SearchState xsd.String
+
+const (
+	SearchState_Queued    SearchState = "Queued"
+	SearchState_Searching SearchState = "Searching"
+	SearchState_Completed SearchState = "Completed"
+	SearchState_Unknown   SearchState = "Unknown"
+)
+
+type RecordingInformation struct {
+	RecordingToken    RecordingReference
+	Source            RecordingSourceInformation
+	EarliestRecording xsd.DateTime
+	LatestRecording   xsd.DateTime
+	Content           Description
+	Track             []TrackInformation
+	RecordingStatus   RecordingStatus
+}
+
+type TrackInformation struct {
+	TrackToken  TrackReference
+	TrackType   TrackType
+	Description Description
+	DataFrom    xsd.DateTime
+	DataTo      xsd.DateTime
+}
+
+type RecordingStatus xsd.String
+
+const (
+	RecordingStatus_Initiated RecordingStatus = "Initiated"
+	RecordingStatus_Recording RecordingStatus = "Recording"
+	RecordingStatus_Stopped   RecordingStatus = "Stopped"
+	RecordingStatus_Removing  RecordingStatus = "Removing"
+	RecordingStatus_Removed   RecordingStatus = "Removed"
+	RecordingStatus_Unknown   RecordingStatus = "Unknown"
+)
+
+type FindEventResultList struct {
+	SearchState SearchState
+	Result      []FindEventResult
+}
+
+type FindEventResult struct {
+	RecordingToken  RecordingReference
+	TrackToken      TrackReference
+	Time            xsd.DateTime
+	Event           NotificationMessageHolderType
+	StartStateEvent xsd.Boolean
+}
+
+type NotificationMessageHolderType struct {
+	SubscriptionReference SubscriptionReference //wsnt http://docs.oasis-open.org/wsn/b-2.xsd
+	Topic                 Topic
+	ProducerReference     ProducerReference
+	Message               MessageNotification
+}
+
+// SubscriptionReference Alias
+type SubscriptionReference EndpointReferenceType
+
+// EndpointReferenceType in ws-addr
+type EndpointReferenceType struct { //wsa http://www.w3.org/2005/08/addressing/ws-addr.xsd
+	Address             AttributedURIType
+	ReferenceParameters ReferenceParametersType
+	Metadata            MetadataType
+}
+
+// AttributedURIType in ws-addr
+type AttributedURIType xsd.AnyURI //wsa https://www.w3.org/2005/08/addressing/ws-addr.xsd
+
+type ReferenceParametersType struct { //wsa https://www.w3.org/2005/08/addressing/ws-addr.xsd
+	//Here can be anyAttribute
+}
+
+// MetadataType in ws-addr
+type MetadataType struct { //wsa https://www.w3.org/2005/08/addressing/ws-addr.xsd
+	//Here can be anyAttribute
+}
+
+// Topic Alias
+type Topic TopicExpressionType
+
+type TopicExpressionType struct { //wsnt http://docs.oasis-open.org/wsn/b-2.xsd
+	Dialect    xsd.AnyURI `xml:"Dialect,attr"`
+	TopicKinds xsd.String `xml:",chardata"`
+}
+
+// ProducerReference Alias
+type ProducerReference EndpointReferenceType
+
+// MessageNotification alias
+type MessageNotification struct {
+	Message MessageNotificationHolderType
+}
+
+type MessageNotificationHolderType struct {
+	UtcTime           xsd.DateTime `xml:",attr"`
+	PropertyOperation xsd.String   `xml:",attr"`
+	Source            SimpleItem   `xml:"Source>SimpleItem"`
+	Data              SimpleItem   `xml:"Data>SimpleItem"`
+}
+
+// FilterType struct
+type FilterType struct {
+	TopicExpression TopicExpressionType `xml:"wsnt:TopicExpression"`
+	MessageContent  QueryExpressionType `xml:"wsnt:MessageContent"`
+}
+
+// QueryExpressionType struct for wsnt:MessageContent
+type QueryExpressionType struct { //wsnt http://docs.oasis-open.org/wsn/b-2.xsd
+	Dialect     xsd.AnyURI `xml:"Dialect,attr"`
+	MessageKind xsd.String `xml:",chardata"` // boolean(ncex:Producer="15")
 }
