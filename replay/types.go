@@ -12,6 +12,5 @@ type GetReplayUri struct {
 }
 
 type GetReplayUriResponse struct {
-	XMLName string `xml:"trp:GetReplayUriResponse"`
-	Uri     xsd.AnyURI
+	Uri xsd.AnyURI
 }
