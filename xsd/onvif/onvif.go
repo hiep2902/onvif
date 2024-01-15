@@ -1947,8 +1947,8 @@ const (
 )
 
 type SearchScope struct {
-	IncludedSources            SourceReference
-	IncludedRecordings         RecordingReference
+	IncludedSources            []SourceReference
+	IncludedRecordings         []RecordingReference
 	RecordingInformationFilter XPathExpression
 	Extension                  SearchScopeExtension
 }
@@ -2070,7 +2070,7 @@ type MessageNotification struct {
 type MessageNotificationHolderType struct {
 	UtcTime           xsd.DateTime `xml:",attr"`
 	PropertyOperation xsd.String   `xml:",attr"`
-	Source            SimpleItem   `xml:"Source>SimpleItem"`
+	Source            []SimpleItem `xml:"Source>SimpleItem"`
 	Data              SimpleItem   `xml:"Data>SimpleItem"`
 }
 
@@ -2084,4 +2084,10 @@ type FilterType struct {
 type QueryExpressionType struct { //wsnt http://docs.oasis-open.org/wsn/b-2.xsd
 	Dialect     xsd.AnyURI `xml:"Dialect,attr"`
 	MessageKind xsd.String `xml:",chardata"` // boolean(ncex:Producer="15")
+}
+
+type RecordingSummary struct {
+	DataFrom         xsd.DateTime
+	DataUntil        xsd.DateTime
+	NumberRecordings xsd.Int
 }
