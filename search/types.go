@@ -63,3 +63,11 @@ type EndSearch struct {
 type EndSearchResponse struct {
 	Endpoint xsd.DateTime
 }
+
+type GetRecordingSummary struct {
+	XMLName string `xml:"tse:GetRecordingSummary"`
+}
+
+type GetRecordingSummaryResponse struct {
+	Summary onvif.RecordingSummary
+}
