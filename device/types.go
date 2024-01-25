@@ -360,8 +360,8 @@ type GetWsdlUrlResponse struct {
 }
 
 type GetCapabilities struct {
-	XMLName  string                   `xml:"tds:GetCapabilities"`
-	Category onvif.CapabilityCategory `xml:"tds:Category"`
+	XMLName  string                     `xml:"tds:GetCapabilities"`
+	Category []onvif.CapabilityCategory `xml:"tds:Category"`
 }
 
 type GetCapabilitiesResponse struct {
