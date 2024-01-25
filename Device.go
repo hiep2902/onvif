@@ -3,18 +3,21 @@ package onvif
 import (
 	"encoding/xml"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/beevik/etree"
 	"github.com/hiep2902/onvif/device"
 	"github.com/hiep2902/onvif/gosoap"
 	"github.com/hiep2902/onvif/networking"
 	wsdiscovery "github.com/hiep2902/onvif/ws-discovery"
+	"github.com/hiep2902/onvif/xsd/onvif"
 )
 
 // Xlmns XML Scheam
@@ -82,6 +85,7 @@ type Device struct {
 	params    DeviceParams
 	endpoints map[string]string
 	info      DeviceInfo
+	timeDiff  int64
 }
 
 type DeviceParams struct {
@@ -171,6 +175,46 @@ func (dev *Device) getSupportedServices(resp *http.Response) error {
 	return nil
 }
 
+func parseFaultResponse(resp *http.Response) (code, subcode, reason, detail string, err error) {
+	doc := etree.NewDocument()
+
+	data, err1 := ioutil.ReadAll(resp.Body)
+	if err1 != nil {
+		err = err1
+		return
+	}
+
+	resp.Body.Close()
+
+	if err1 := doc.ReadFromBytes(data); err1 != nil {
+		//log.Println(err.Error())
+		err = err1
+		return
+	}
+
+	codeElement := doc.FindElement("./Envelope/Body/Fault/Code/Value")
+	if codeElement != nil {
+		code = codeElement.Text()
+	}
+
+	subcodeElement := doc.FindElement("./Envelope/Body/Fault/Code/Subcode/Value")
+	if subcodeElement != nil {
+		subcode = subcodeElement.Text()
+	}
+
+	reasonElement := doc.FindElement("./Envelope/Body/Fault/Reason/Text")
+	if reasonElement != nil {
+		reason = reasonElement.Text()
+	}
+
+	detailElement := doc.FindElement("./Envelope/Body/Fault/Detail/Text")
+	if detailElement != nil {
+		detail = detailElement.Text()
+	}
+
+	return
+}
+
 // NewDevice function construct a ONVIF Device entity
 func NewDevice(params DeviceParams) (*Device, error) {
 	dev := new(Device)
@@ -182,11 +226,19 @@ func NewDevice(params DeviceParams) (*Device, error) {
 		dev.params.HttpClient = new(http.Client)
 	}
 
-	getCapabilities := device.GetCapabilities{Category: "All"}
+	dev.SyncDateTime()
+
+	getCapabilities := device.GetCapabilities{Category: []onvif.CapabilityCategory{"All"}}
 
 	resp, err := dev.CallMethod(getCapabilities)
 
 	if err != nil || resp.StatusCode != http.StatusOK {
+		if err == nil && resp.StatusCode != http.StatusNotFound {
+			code, subcode, reason, detail, err := parseFaultResponse(resp)
+			if err == nil {
+				return nil, fmt.Errorf("[%s/%s]: %s - %s", code, subcode, reason, detail)
+			}
+		}
 		return nil, errors.New("camera is not available at " + dev.params.Xaddr + " or it does not support ONVIF services")
 	}
 
@@ -253,6 +305,56 @@ func (dev Device) getEndpoint(endpoint string) (string, error) {
 	return endpointURL, errors.New("target endpoint service not found")
 }
 
+func (dev *Device) SyncDateTime() error {
+	devNonAuth := &Device{
+		endpoints: dev.endpoints,
+		params: DeviceParams{
+			Xaddr:      dev.params.Xaddr,
+			HttpClient: dev.params.HttpClient,
+		},
+	}
+	resp, err := devNonAuth.CallMethod(device.GetSystemDateAndTime{})
+
+	if err != nil {
+		return err
+	} else if resp.StatusCode == http.StatusNotFound {
+		return errors.New(resp.Status)
+	}
+
+	doc := etree.NewDocument()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	resp.Body.Close()
+
+	if err := doc.ReadFromBytes(data); err != nil {
+		//log.Println(err.Error())
+		return err
+	}
+
+	utcDateTime := doc.FindElement("./Envelope/Body/GetSystemDateAndTimeResponse/SystemDateAndTime/UTCDateTime")
+
+	year := utcDateTime.FindElement("./Date/Year").Text()
+	month := utcDateTime.FindElement("./Date/Month").Text()
+	day := utcDateTime.FindElement("./Date/Day").Text()
+
+	hour := utcDateTime.FindElement("./Time/Hour").Text()
+	minute := utcDateTime.FindElement("./Time/Minute").Text()
+	second := utcDateTime.FindElement("./Time/Second").Text()
+
+	deviceTime, err := time.Parse(time.RFC3339, fmt.Sprintf("%04s-%02s-%02sT%02s:%02s:%02sZ", year, month, day, hour, minute, second))
+	if err != nil {
+		//log.Println(err.Error())
+		return err
+	}
+
+	dev.timeDiff = deviceTime.Unix() - time.Now().Unix()
+	return nil
+}
+
 // CallMethod functions call an method, defined <method> struct.
 // You should use Authenticate method to call authorized requests.
 func (dev Device) CallMethod(method interface{}) (*http.Response, error) {
@@ -293,7 +395,7 @@ func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Respo
 
 	//Auth Handling
 	if dev.params.Username != "" && dev.params.Password != "" {
-		soap.AddWSSecurity(dev.params.Username, dev.params.Password)
+		soap.AddWSSecurity(dev.params.Username, dev.params.Password, time.Now().Add(time.Duration(dev.timeDiff)*time.Second))
 	}
 
 	return networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
