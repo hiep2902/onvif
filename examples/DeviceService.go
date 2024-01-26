@@ -33,7 +33,7 @@ func main() {
 
 	//Preparing commands
 	systemDateAndTyme := device.GetSystemDateAndTime{}
-	getCapabilities := device.GetCapabilities{Category: "All"}
+	getCapabilities := device.GetCapabilities{Category: []onvif.CapabilityCategory{"All"}}
 	createUser := device.CreateUsers{
 		User: onvif.User{
 			Username:  "TestUser",

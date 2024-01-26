@@ -192,6 +192,33 @@ func (msg *SoapMessage) AddHeaderContents(elements []*etree.Element) {
 	*msg = SoapMessage(res)
 }
 
+func (msg *SoapMessage) AddNamespaces(path string, namespaces map[string]string) {
+	if len(namespaces) == 0 {
+		return
+	}
+	doc := etree.NewDocument()
+	if err := doc.ReadFromString(msg.String()); err != nil {
+		log.Println(err.Error())
+	}
+	element := doc.FindElement(path)
+	if element != nil {
+		for key, value := range namespaces {
+			ns := "xmlns"
+			if len(key) > 0 && key != "default" {
+				ns = ns + ":" + key
+			}
+			element.CreateAttr(ns, value)
+		}
+		res, _ := doc.WriteToString()
+
+		*msg = SoapMessage(res)
+	}
+}
+
+func (msg *SoapMessage) AddBodyNamespaces(namespaces map[string]string) {
+	msg.AddNamespaces("/Envelope/Body", namespaces)
+}
+
 // AddRootNamespace for Envelope body
 func (msg *SoapMessage) AddRootNamespace(key, value string) {
 	doc := etree.NewDocument()
@@ -207,9 +234,10 @@ func (msg *SoapMessage) AddRootNamespace(key, value string) {
 
 // AddRootNamespaces for Envelope body
 func (msg *SoapMessage) AddRootNamespaces(namespaces map[string]string) {
-	for key, value := range namespaces {
-		msg.AddRootNamespace(key, value)
-	}
+	// for key, value := range namespaces {
+	// 	msg.AddRootNamespace(key, value)
+	// }
+	msg.AddNamespaces("/Envelope", namespaces)
 
 	/*
 		doc := etree.NewDocument()
@@ -233,12 +261,13 @@ func buildSoapRoot() *etree.Document {
 
 	doc.CreateProcInst("xml", `version="1.0" encoding="UTF-8"`)
 
-	env := doc.CreateElement("soap-env:Envelope")
-	env.CreateElement("soap-env:Header")
-	env.CreateElement("soap-env:Body")
+	env := doc.CreateElement("env:Envelope")
+	env.CreateElement("env:Header")
+	body := env.CreateElement("env:Body")
 
-	env.CreateAttr("xmlns:soap-env", "http://www.w3.org/2003/05/soap-envelope")
-	env.CreateAttr("xmlns:soap-enc", "http://www.w3.org/2003/05/soap-encoding")
+	env.CreateAttr("xmlns:env", "http://www.w3.org/2003/05/soap-envelope")
+	env.CreateAttr("xmlns:enc", "http://www.w3.org/2003/05/soap-encoding")
+	body.CreateAttr("xmlns", "http://www.onvif.org/ver10/schema")
 
 	return doc
 }

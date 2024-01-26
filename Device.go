@@ -22,6 +22,10 @@ import (
 
 // Xlmns XML Scheam
 var Xlmns = map[string]string{
+	"default": "http://www.onvif.org/ver10/schema",
+	"ter":     "http://www.onvif.org/ver10/error",
+	"xs":      "http://www.w3.org/2001/XMLSchema",
+	"tt":      "http://www.onvif.org/ver10/schema",
 	"onvif":   "http://www.onvif.org/ver10/schema",
 	"tds":     "http://www.onvif.org/ver10/device/wsdl",
 	"trt":     "http://www.onvif.org/ver10/media/wsdl",
@@ -40,6 +44,16 @@ var Xlmns = map[string]string{
 	"trc":     "http://www.onvif.org/ver10/recording/wsdl",
 	"trp":     "http://www.onvif.org/ver10/replay/wsdl",
 	"tse":     "http://www.onvif.org/ver10/search/wsdl",
+	"tns1":    "http://www.onvif.org/ver10/topics",
+}
+
+var RefNamespaces = map[string][]string{
+	"device":    {"tds"},
+	"media":     {"trt", "tns1"},
+	"ptz":       {"tptz"},
+	"recording": {"ter", "trc"},
+	"replay":    {"trp"},
+	"search":    {"tse"},
 }
 
 // DeviceType alias for int
@@ -361,26 +375,23 @@ func (dev Device) CallMethod(method interface{}) (*http.Response, error) {
 	pkgPath := strings.Split(reflect.TypeOf(method).PkgPath(), "/")
 	pkg := strings.ToLower(pkgPath[len(pkgPath)-1])
 
-	endpoint, err := dev.getEndpoint(pkg)
-	if err != nil {
-		return nil, err
-	}
-	return dev.callMethodDo(endpoint, method)
+	return dev.callMethodDo(pkg, method)
 }
 
 // CallEndpointMethod functions call an method, un-defined <method> struct.
 // You should use Authenticate method to call authorized requests.
 func (dev Device) CallEndpointMethod(endpointName string, method interface{}) (*http.Response, error) {
+	return dev.callMethodDo(endpointName, method)
+}
+
+// CallMethod functions call an method, defined <method> struct with authentication data
+func (dev Device) callMethodDo(endpointName string, method interface{}) (*http.Response, error) {
 	endpoint, err := dev.getEndpoint(endpointName)
 	if err != nil {
 		return nil, err
 	}
-	return dev.callMethodDo(endpoint, method)
-}
 
-// CallMethod functions call an method, defined <method> struct with authentication data
-func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Response, error) {
-	output, err := xml.MarshalIndent(method, "  ", "    ")
+	output, err := xml.MarshalIndent(method, "", "")
 	if err != nil {
 		return nil, err
 	}
@@ -390,8 +401,9 @@ func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Respo
 		return nil, err
 	}
 
-	soap.AddRootNamespaces(Xlmns)
-	soap.AddAction()
+	// soap.AddRootNamespaces(Xlmns)
+	// soap.AddAction()
+	soap.AddBodyNamespaces(getNamespaces(endpointName))
 
 	//Auth Handling
 	if dev.params.Username != "" && dev.params.Password != "" {
@@ -399,4 +411,17 @@ func (dev Device) callMethodDo(endpoint string, method interface{}) (*http.Respo
 	}
 
 	return networking.SendSoap(dev.params.HttpClient, endpoint, soap.String())
+}
+
+func getNamespaces(endpointName string) map[string]string {
+	if refList, ok := RefNamespaces[endpointName]; ok {
+		ret := make(map[string]string, len(refList))
+		for _, ref := range refList {
+			if nsValue, found := Xlmns[ref]; found {
+				ret[ref] = nsValue
+			}
+		}
+		return ret
+	}
+	return Xlmns
 }
